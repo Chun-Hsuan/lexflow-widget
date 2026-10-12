@@ -158,4 +158,46 @@ public class StoreTest {
         }
         assertEquals(false, Store.isLocked(d, D1));
     }
+
+    @Test
+    public void loweringTheLimitToTodaysCountLocksNow() {
+        Store.dailyLimit = 0;
+        Store.Data d = data(8);
+        Store.ensureCurrent(d, T0, D1);
+        for (int i = 0; i < 3; i++) Store.applyUnderstood(d, d.currentId(), T0, D1);
+        assertEquals(false, Store.isLocked(d, D1));
+        Store.applyLimit(d, 3, T0 + 5, D1);
+        assertEquals(true, Store.isLocked(d, D1));
+        Store.dailyLimit = 0;
+    }
+
+    @Test
+    public void raisingTheLimitUnlocksAndRestartsTimer() {
+        Store.dailyLimit = 5;
+        Store.Data d = data(8);
+        Store.ensureCurrent(d, T0, D1);
+        for (int i = 0; i < 5; i++) Store.applyUnderstood(d, d.currentId(), T0, D1);
+        assertEquals(true, Store.isLocked(d, D1));
+        String waiting = d.currentId();
+        Store.applyLimit(d, 8, T0 + 10 * Store.HOUR, D1);
+        assertEquals(false, Store.isLocked(d, D1));
+        assertEquals(T0 + 10 * Store.HOUR, d.state.optLong("shownSince"));
+        assertEquals(1, Store.applyUnderstood(d, waiting, T0 + 10 * Store.HOUR + 1, D1));
+        Store.dailyLimit = 0;
+    }
+
+    @Test
+    public void limitBelowTodaysCountStillCountsFromZeroTomorrow() {
+        Store.dailyLimit = 0;
+        Store.Data d = data(8);
+        Store.ensureCurrent(d, T0, D1);
+        for (int i = 0; i < 4; i++) Store.applyUnderstood(d, d.currentId(), T0, D1);
+        Store.applyLimit(d, 2, T0 + 5, D1); // already read 4, so today is over
+        assertEquals(true, Store.isLocked(d, D1));
+        String waiting = d.currentId();
+        Store.ensureCurrent(d, T0 + 30 * Store.HOUR, D2);
+        assertEquals(false, Store.isLocked(d, D2));
+        assertEquals(1, Store.applyUnderstood(d, waiting, T0 + 30 * Store.HOUR + 1, D2));
+        Store.dailyLimit = 0;
+    }
 }

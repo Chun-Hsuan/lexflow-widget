@@ -38,10 +38,14 @@ public final class Store {
     static final long DAY = 24L * HOUR;
     static final long SWAP_AFTER = DAY;
     static final int[] INTERVAL_DAYS = {1, 3, 7, 14, 30};
-    /** Done taps allowed per day; 0 means no limit. */
+    /**
+     * Done taps allowed per day; 0 means no limit. Chosen in the settings screen;
+     * the build setting is only the starting value. Refreshed from storage on every load.
+     */
     static int dailyLimit = BuildConfig.DAILY_LIMIT;
 
     private static final String PREFS = "lexflow_state";
+    private static final String KEY_LIMIT = "dailyLimit";
     private static final String KEY_STATE = "state";
     private static final String NOTES_FILE = "notes.json";
 
@@ -109,7 +113,42 @@ public final class Store {
         return d.find(d.currentId());
     }
 
-    /** True once today's 5 Done taps are used up. */
+    /** The daily limit chosen in settings; 0 means no limit. */
+    public static synchronized int dailyLimit(Context c) {
+        return c.getSharedPreferences(PREFS, Context.MODE_PRIVATE)
+                .getInt(KEY_LIMIT, BuildConfig.DAILY_LIMIT);
+    }
+
+    /** Saves a new daily limit and re-checks today's lock right away. */
+    public static synchronized void setDailyLimit(Context c, int limit) {
+        Data d = load(c);
+        applyLimit(d, limit, System.currentTimeMillis(), today());
+        c.getSharedPreferences(PREFS, Context.MODE_PRIVATE).edit()
+                .putInt(KEY_LIMIT, dailyLimit).commit();
+        save(c, d);
+    }
+
+    /**
+     * Switches to a new limit. Lowering it to what was already read today locks the day now;
+     * raising it (or removing it) unlocks the day and restarts the waiting note's 24 hours.
+     */
+    static void applyLimit(Data d, int limit, long now, String today) {
+        dailyLimit = Math.max(0, limit);
+        int count = today.equals(d.state.optString("countDay", "")) ? d.state.optInt("count", 0) : 0;
+        boolean wasLocked = !d.state.optString("lockDay", "").isEmpty();
+        try {
+            if (dailyLimit > 0 && count >= dailyLimit) {
+                d.state.put("lockDay", today);
+            } else if (wasLocked) {
+                d.state.remove("lockDay");
+                String cur = d.currentId();
+                if (d.find(cur) != null) setCurrent(d, cur, now);
+            }
+        } catch (JSONException ignored) {
+        }
+    }
+
+    /** True once today's Done taps reach the daily limit. */
     public static synchronized boolean finishedToday(Context c) {
         return isLocked(load(c), today());
     }
@@ -312,6 +351,7 @@ public final class Store {
         }
 
         SharedPreferences p = c.getSharedPreferences(PREFS, Context.MODE_PRIVATE);
+        dailyLimit = p.getInt(KEY_LIMIT, BuildConfig.DAILY_LIMIT);
         try {
             d.state = new JSONObject(p.getString(KEY_STATE, "{}"));
         } catch (JSONException e) {

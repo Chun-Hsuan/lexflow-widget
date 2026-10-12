@@ -15,7 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 /**
- * Pick the widget's background color with three sliders and see it live.
+ * Settings: the widget's background color (three sliders, live preview) and the daily limit.
  * Also the widget's configure screen (long-press the widget, then its settings).
  */
 public class SettingsActivity extends Activity {
@@ -34,6 +34,8 @@ public class SettingsActivity extends Activity {
     private SeekBar hueBar;
     private SeekBar satBar;
     private SeekBar valBar;
+    private TextView limitLabel;
+    private SeekBar limitBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,14 +58,18 @@ public class SettingsActivity extends Activity {
         scroll.addView(col, new ViewGroup.LayoutParams(MATCH, WRAP));
         setContentView(scroll);
 
-        TextView title = text("小工具底色", 26, R.color.fg);
+        TextView title = text("設定", 26, R.color.fg);
         title.setTypeface(Typeface.DEFAULT_BOLD);
         col.addView(title, new LinearLayout.LayoutParams(MATCH, WRAP));
 
-        TextView hint = text("拉下面的滑桿，卡片會即時變色。按「套用」才會換到主畫面的小工具。", 15, R.color.muted);
+        TextView hint = text("調整完按最下面的「套用」才會生效。", 15, R.color.muted);
         LinearLayout.LayoutParams hintLp = new LinearLayout.LayoutParams(MATCH, WRAP);
         hintLp.topMargin = dp(6);
         col.addView(hint, hintLp);
+
+        section(col, "小工具底色", 28);
+        TextView colorHint = text("拉滑桿，下面的卡片會即時變色。", 15, R.color.muted);
+        col.addView(colorHint, new LinearLayout.LayoutParams(MATCH, WRAP));
 
         // Preview card, same proportions as the widget.
         LinearLayout card = new LinearLayout(this);
@@ -83,7 +89,7 @@ public class SettingsActivity extends Activity {
         coreLp.topMargin = dp(12);
         card.addView(cardCore, coreLp);
         LinearLayout.LayoutParams cardLp = new LinearLayout.LayoutParams(MATCH, WRAP);
-        cardLp.topMargin = dp(20);
+        cardLp.topMargin = dp(14);
         col.addView(card, cardLp);
 
         hexText = text("", 18, R.color.fg);
@@ -115,13 +121,28 @@ public class SettingsActivity extends Activity {
         presetLp.topMargin = dp(22);
         col.addView(presets, presetLp);
 
-        Button apply = button("套用到小工具", true);
+        section(col, "每日上限", 36);
+        TextView limitHint = text("每天最多按幾次 Done。讀滿後小工具只顯示 That's all for today.，半夜 12 點解除。0 代表不限。",
+                15, R.color.muted);
+        col.addView(limitHint, new LinearLayout.LayoutParams(MATCH, WRAP));
+        limitLabel = new TextView(this);
+        limitBar = slider(col, limitLabel, 20, Store.dailyLimit(this));
+
+        Button apply = button("套用", true);
         apply.setOnClickListener(v -> apply());
         LinearLayout.LayoutParams applyLp = new LinearLayout.LayoutParams(MATCH, dp(56));
-        applyLp.topMargin = dp(18);
+        applyLp.topMargin = dp(32);
         col.addView(apply, applyLp);
 
         readBars();
+    }
+
+    private void section(LinearLayout col, String name, int topMarginDp) {
+        TextView t = text(name, 20, R.color.accent);
+        t.setTypeface(Typeface.DEFAULT_BOLD);
+        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(MATCH, WRAP);
+        lp.topMargin = dp(topMarginDp);
+        col.addView(t, lp);
     }
 
     private void apply() {
@@ -129,9 +150,10 @@ public class SettingsActivity extends Activity {
         int s = satBar.getProgress();
         int v = valBar.getProgress();
         WidgetTheme.save(this, h, s, v);
+        Store.setDailyLimit(this, limitBar.getProgress());
         NoteWidget.refreshAll(this);
         setResult(RESULT_OK, new Intent().putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, widgetId));
-        Toast.makeText(this, "已套用 " + HsvColor.hex(HsvColor.rgb(h, s, v)), Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "已套用", Toast.LENGTH_SHORT).show();
         finish();
     }
 
@@ -154,6 +176,8 @@ public class SettingsActivity extends Activity {
         hueLabel.setText("色調  " + h + "　（120 綠、150 青綠、180 青）");
         satLabel.setText("顏色濃淡  " + s + "　（0 沒有顏色，越大越明顯）");
         valLabel.setText("明暗  " + v + "　（0 純黑，越大越亮）");
+        int limit = limitBar.getProgress();
+        limitLabel.setText(limit == 0 ? "每天上限  不限" : "每天上限  " + limit + " 則");
     }
 
     private SeekBar slider(LinearLayout col, TextView label, int max, int progress) {
