@@ -1,6 +1,9 @@
 package com.lexflow.widget;
 
 import android.app.Activity;
+import android.content.res.ColorStateList;
+import android.graphics.drawable.GradientDrawable;
+import android.graphics.drawable.RippleDrawable;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -21,6 +24,11 @@ public class DetailActivity extends Activity {
             "Well done.", "Keep going.", "Onward.", "Another one for the essay.",
     };
     private static final Random RANDOM = new Random();
+
+    /** 墨水 set: the Done button takes one of these at random each time the page opens. */
+    private static final int[] INK_COLORS = {
+            0xFF2E4A6B, 0xFF1F5F5B, 0xFF5B3A63, 0xFF8A4B2A, 0xFF4F5B2E, 0xFF3A3F47,
+    };
 
     private WebView web;
     private TextView button;
@@ -67,6 +75,7 @@ public class DetailActivity extends Activity {
         boolean finished = Store.finishedToday(this);
         Store.Note n = finished ? null : Store.current(this);
         shownId = n == null ? null : n.id;
+        paintButton(INK_COLORS[RANDOM.nextInt(INK_COLORS.length)]);
         button.setEnabled(n != null);
         button.setVisibility(n == null ? View.GONE : View.VISIBLE);
 
@@ -104,6 +113,13 @@ public class DetailActivity extends Activity {
             // The widget already moved on while this page was open; show the new note.
             show();
         }
+    }
+
+    private void paintButton(int color) {
+        GradientDrawable circle = new GradientDrawable();
+        circle.setShape(GradientDrawable.OVAL);
+        circle.setColor(color);
+        button.setBackground(new RippleDrawable(ColorStateList.valueOf(0x33FFFFFF), circle, null));
     }
 
     private static String esc(String s) {
