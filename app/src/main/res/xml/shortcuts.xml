@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shortcuts xmlns:android="http://schemas.android.com/apk/res/android">
+    <shortcut
+        android:enabled="true"
+        android:shortcutId="widget_color"
+        android:shortcutLongLabel="@string/shortcut_color"
+        android:shortcutShortLabel="@string/shortcut_color">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetClass="com.lexflow.widget.SettingsActivity"
+            android:targetPackage="com.lexflow.widget" />
+    </shortcut>
+</shortcuts>

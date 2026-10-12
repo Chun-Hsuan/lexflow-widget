@@ -60,8 +60,10 @@ public class NoteWidget extends AppWidgetProvider {
             core = n.core;
         }
 
+        int bg = WidgetTheme.bgColor(c);
         for (int id : ids) {
             RemoteViews v = new RemoteViews(c.getPackageName(), R.layout.widget);
+            v.setInt(R.id.w_bg, "setColorFilter", bg);
             v.setTextViewText(R.id.w_title, title);
             v.setTextViewText(R.id.w_core, core);
 

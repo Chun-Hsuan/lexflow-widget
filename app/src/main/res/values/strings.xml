@@ -5,6 +5,8 @@
     <string name="understood">Done</string>
     <string name="end_title">That\'s all for today.</string>
     <string name="end_body">See you tomorrow.</string>
+    <string name="shortcut_color">小工具底色</string>
+    <string name="settings_title">小工具底色</string>
     <string name="loading">載入中</string>
     <string name="empty_title">還沒有筆記</string>
     <string name="empty_body">筆記檔案是空的。新增筆記後，打開這個 App 就會同步。</string>
