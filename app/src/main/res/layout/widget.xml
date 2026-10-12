@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Dark solid card (matches Samsung's calendar widget). Title one line, 24sp,
+<!-- Dark solid card (matches Samsung's calendar widget). Title one line, 29sp,
      shrinking to 18sp only if it does not fit. Core 16sp, up to 3 lines.
      The text block sits vertically centered with even margins. -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -17,8 +17,8 @@
     <TextView
         android:id="@+id/w_title"
         android:layout_width="match_parent"
-        android:layout_height="34dp"
-        android:autoSizeMaxTextSize="24sp"
+        android:layout_height="40dp"
+        android:autoSizeMaxTextSize="29sp"
         android:autoSizeMinTextSize="18sp"
         android:autoSizeStepGranularity="1sp"
         android:autoSizeTextType="uniform"
