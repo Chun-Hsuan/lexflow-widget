@@ -44,6 +44,12 @@ public class DetailActivity extends Activity {
     @Override
     protected void onResume() {
         super.onResume();
+        if (Store.finishedToday(this)) {
+            // Done for today: the note page stays closed until tomorrow.
+            Toast.makeText(this, getString(R.string.end_title), Toast.LENGTH_SHORT).show();
+            finish();
+            return;
+        }
         show();
         new Thread(() -> {
             if (Sync.run(getApplicationContext(), true)) {

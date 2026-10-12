@@ -39,7 +39,8 @@ public class NoteWidget extends AppWidgetProvider {
     private static void render(Context c, AppWidgetManager manager, int[] ids) {
         RemoteViews v = new RemoteViews(c.getPackageName(), R.layout.widget);
         Store.Note n = Store.current(c);
-        if (Store.finishedToday(c)) {
+        boolean finished = Store.finishedToday(c);
+        if (finished) {
             v.setTextViewText(R.id.w_type, c.getString(R.string.app_name));
             v.setTextViewText(R.id.w_title, c.getString(R.string.end_title));
             v.setTextViewText(R.id.w_core, c.getString(R.string.end_body));
@@ -52,11 +53,15 @@ public class NoteWidget extends AppWidgetProvider {
             v.setTextViewText(R.id.w_title, n.title);
             v.setTextViewText(R.id.w_core, n.core);
         }
-        Intent open = new Intent(c, DetailActivity.class);
-        open.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        PendingIntent pi = PendingIntent.getActivity(
-                c, 0, open, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
-        v.setOnClickPendingIntent(R.id.w_root, pi);
+        // After today's 5 notes the widget only shows the end message; tapping does nothing.
+        // updateAppWidget replaces the whole view, so leaving out the click clears it.
+        if (!finished) {
+            Intent open = new Intent(c, DetailActivity.class);
+            open.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            PendingIntent pi = PendingIntent.getActivity(
+                    c, 0, open, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
+            v.setOnClickPendingIntent(R.id.w_root, pi);
+        }
         manager.updateAppWidget(ids, v);
     }
 }
