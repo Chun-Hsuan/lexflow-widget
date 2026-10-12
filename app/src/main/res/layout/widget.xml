@@ -1,46 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- Title fills whatever height the core leaves: auto-sized between 16sp and 28sp.
+     The core keeps one fixed size so the reading text never jumps around. -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/w_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/widget_bg"
-    android:gravity="center_vertical"
     android:orientation="vertical"
     android:paddingStart="20dp"
-    android:paddingTop="18dp"
+    android:paddingTop="16dp"
     android:paddingEnd="20dp"
     android:paddingBottom="18dp">
 
     <TextView
-        android:id="@+id/w_type"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:letterSpacing="0.08"
-        android:text="@string/app_name"
-        android:textColor="@color/widget_label"
-        android:textSize="13sp"
-        android:textStyle="bold" />
-
-    <TextView
         android:id="@+id/w_title"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="6dp"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:autoSizeMaxTextSize="28sp"
+        android:autoSizeMinTextSize="16sp"
+        android:autoSizeStepGranularity="1sp"
+        android:autoSizeTextType="uniform"
         android:ellipsize="end"
-        android:maxLines="2"
+        android:gravity="center_vertical"
+        android:maxLines="3"
         android:text="@string/loading"
         android:textColor="@color/fg"
-        android:textSize="22sp"
         android:textStyle="bold" />
 
     <TextView
         android:id="@+id/w_core"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="6dp"
         android:ellipsize="end"
         android:lineSpacingMultiplier="1.2"
-        android:maxLines="5"
+        android:maxLines="4"
         android:textColor="@color/fg_soft"
-        android:textSize="17sp" />
+        android:textSize="15sp" />
 </LinearLayout>
