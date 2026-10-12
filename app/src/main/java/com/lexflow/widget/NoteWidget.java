@@ -94,15 +94,15 @@ public class NoteWidget extends AppWidgetProvider {
         }
         if (h <= 0) h = 180;
 
-        float typeSp = clamp(h * 0.07f, 12f, 16f);
-        float titleSp = clamp(h * 0.125f, 17f, 30f);
-        float coreSp = clamp(h * 0.095f, 14f, 22f);
+        float typeSp = clamp(h * 0.06f, 11f, 14f);
+        float titleSp = clamp(h * 0.095f, 16f, 22f);
+        float coreSp = clamp(h * 0.075f, 13f, 17f);
         v.setTextViewTextSize(R.id.w_type, TypedValue.COMPLEX_UNIT_SP, typeSp);
         v.setTextViewTextSize(R.id.w_title, TypedValue.COMPLEX_UNIT_SP, titleSp);
         v.setTextViewTextSize(R.id.w_core, TypedValue.COMPLEX_UNIT_SP, coreSp);
 
         // Room left for the core after padding, type label and up to two title lines.
-        float left = h - 40f - typeSp * 1.4f - titleSp * 1.35f * 2f - 12f;
+        float left = h - 36f - typeSp * 1.4f - titleSp * 1.35f * 2f - 14f;
         int lines = (int) Math.floor(left / (coreSp * 1.45f));
         v.setInt(R.id.w_core, "setMaxLines", Math.max(2, Math.min(lines, 8)));
     }
