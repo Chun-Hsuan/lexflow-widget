@@ -1,61 +1,69 @@
 ---
-title: devoted / faithful / loyal（忠實的）
+title: devoted / faithful / loyal
 type: 辨析
-core: devoted 因為愛而付出；faithful 因為承諾而不背叛；loyal 因為關係、立場而在誘惑前不倒戈；三個都接 to。
+core: 三字常可互換；devoted 偏愛與付出，faithful 偏守信與如實，loyal 偏效忠；三者都接 to。
 ---
 
-## 一句話
+## 結論
 
-devoted 是因為「愛」而付出，faithful 是因為「承諾」而守信，loyal 是因為「關係／義務」而在考驗中不背叛。
+- 三個字都可以表示「忠實、忠誠」，在多數句子中差別不大，三者後面都接 to（名詞或 V-ing）。
+- 真正會用錯的情況有三種：faithful 才有「如實、忠於原文」的意思；說伴侶「沒有出軌」用 faithful；devoted 才強調「愛與全心付出」。
+- 其他情況（忠心的狗、朋友、員工）常可混用，中文翻成「忠實」時不用硬分。
 
-## 對比表
+## 可以混用
 
-| 單字 | 核心本質 | 常見搭配 |
-|---|---|---|
-| devoted | 情感導向（因為愛）：出於深厚情感，願意全心投入時間與精力 | devoted parents（充滿愛的父母）；devoted fan / follower（死忠粉絲） |
-| faithful | 信任導向（因為承諾）：信守誓言、不背叛、如實呈現 | faithful husband（沒有出軌的丈夫）；faithful dog（不離不棄的狗）；faithful translation（忠於原文的翻譯）；remain faithful to... |
-| loyal | 組織／義務導向（因為關係）：面臨考驗或誘惑時，堅定站在同一陣線 | loyal citizen / soldier（忠誠的公民／士兵）；loyal customer（不跳槽去別家的老顧客） |
+- a loyal dog / a faithful dog：都通順，都是「忠心的狗」。
+- a loyal friend / a faithful friend：都通順。
+- loyal customer 是比較固定的說法（常見於品牌、商店），faithful customer 較少見。*
 
-## 情境微差別
+## 用法不同
 
-**形容丈夫**
+**1. faithful 才有「如實、忠於原文」的意思**
 
-- He is a devoted husband. → 強調他很貼心、顧家，心思都放在妻子身上。
-- He is a faithful husband. → 強調他對婚姻忠誠、沒有出軌。
+- 對：a faithful translation（忠於原文的翻譯）
+- 錯：a loyal translation / a devoted translation
 
-**形容支持者**
+**2. 形容伴侶「沒有出軌」用 faithful**
 
-- devoted followers → 充滿狂熱與熱情，願意為其付出。
-- faithful followers → 不離不棄，遇到什麼風雨都一如既往地支持。
+- He is a faithful husband.（他是個忠實的丈夫：對婚姻忠誠、沒有出軌。）
+- He is a devoted husband.（他是個摯愛妻子的丈夫：貼心、顧家、把心思放在妻子身上。）
+- 兩句意思不同，換了會變成另一個意思。
 
-**同一個員工的三種樣子**
+**3. devoted 強調出於愛的全心付出**
 
-- devoted employee：熱愛這份工作，自動加班，把專案當自己的孩子照顧（熱情）。
-- faithful employee：遵守契約，長年做好本分，答應的事一定做到（守信、可靠）。
-- loyal employee：競爭對手開兩倍薪水挖角，他拒絕了，留下來一起度過難關（面對誘惑不背叛）。
-
-## 介系詞都是 to
-
-to 後面接名詞或動名詞（V-ing）：
-
-- be devoted to...（全心奉獻於……）
-  - She is devoted to her medical career.（她全心投入醫療事業。）
+- devoted fan（死忠的粉絲）、devoted parents（充滿愛的父母）、devoted friend
+- 句型：be devoted to + N/V-ing
+  - She is devoted to her medical career.*（她全心投入她的醫療事業。）
   - The couple is deeply devoted to each other.（這對夫妻彼此深愛、全心付出。）
-- be faithful to...（對……信守承諾）
-  - Animals are often incredibly faithful to their owners.（動物通常對主人非常忠心。）
-  - You must remain faithful to your promises.（你必須信守你的承諾。）
-- be loyal to...（對……效忠）
-  - Customers are loyal to brands they trust.（顧客會忠於他們信任的品牌。）
 
-## 為什麼中文都翻成「忠實」
+## 核心對照
 
-中文的「忠實」同時包含「忠誠（不背叛）」和「實在（全心全意）」兩種概念，情境一換，意思就切換了：
+| 單字 | 偏向 | 常見搭配 |
+|---|---|---|
+| devoted | 愛與全心付出 | devoted fan / parents / husband / friend；be devoted to |
+| faithful | 守信、不背叛、如實 | faithful husband / dog；remain faithful to；faithful translation |
+| loyal | 效忠、在考驗前不倒戈 | loyal citizen / soldier / customer / friend；be loyal to |
 
-- 「忠實的讀者、忠實的粉絲、顧家的丈夫」強調出於內心的熱愛，持續投入 → devoted
-- 「忠實的狗、忠實的部屬、沒有出軌的伴侶」強調可靠、不背叛 → faithful
+## 對 to 的搭配
 
-## 建議改記的中文
+- be devoted to...：He is devoted to his work.*
+- be faithful to...：He remained faithful to his principles.（他始終堅守自己的原則。）
+- be loyal to...：Customers are loyal to brands they trust.（顧客會忠於他們信任的品牌。）
 
-- devoted → 摯愛的、全心奉獻的、死忠的（愛與熱情）
-- faithful → 忠心的、守信的、如實的（信任與承諾）
-- loyal → 忠心耿耿的、講義氣不背叛的（關係與組織）
+## 情境參考
+
+以公司員工為例，三個字常見的意思如下（語感參考，不是硬規則）：
+
+- devoted employee：熱愛這份工作，自動自發加班。
+- faithful employee：遵守契約，做好本分，答應的事一定做到。
+- loyal employee：被競爭對手高薪挖角也拒絕，選擇留在原公司。
+
+## 翻譯與作文
+
+- 中文對應：「忠實的粉絲／讀者」→ devoted、loyal 都可；「忠實的丈夫、伴侶」→ faithful；「忠實的翻譯」→ faithful；「忠心的狗」→ loyal、faithful；「忠誠的顧客、員工」→ loyal。
+- 翻譯示範：他是個對家庭全心付出的父親。
+  He is a father who is devoted to his family.*
+  「全心付出」對應 be devoted to，to 後面接名詞。
+- 作文句型：___ remains loyal to ___. / be devoted to ___.
+  - Many customers remain loyal to the brand because of its good service.*
+- 字根：faith 是 faithful 的名詞（信任、信念、信仰），見 faith 一則。

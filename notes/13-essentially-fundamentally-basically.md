@@ -1,38 +1,54 @@
 ---
-title: essentially / fundamentally / basically
+title: 基本上：三個副詞辨析
 type: 辨析
-core: essentially 看透核心本質（essentially the same）；fundamentally 觸及底層根基、徹底的差異（fundamentally different）；basically 長話短說、忽略細節，口語常用。
+core: 三個字多半可互換；fundamentally 帶「根本上」的程度，不能用來表示「大致上完成」。
 ---
 
-三個都翻成「基本上」，日常對話中常可互換，但切入角度不同：essentially 看的是核心本質，fundamentally 挖的是底層根基，basically 則是長話短說、簡化細節。
+## 結論
 
-## 對比表
+- essentially、fundamentally、basically 中文都翻成「基本上」，在很多句子裡可以互換。
+- 真正會用錯的地方是 fundamentally：它表示「根本上」，常搭配 different、disagree、change；中文「基本上（大致上）完成了」要用 essentially 或 basically。
+- basically 在口語中常放句首當發語詞（簡單來說）；essentially 在書面中也常見。
 
-| 單字 | 核心本質 | 什麼時候用 |
+## 可以混用
+
+下面幾句換字後都通順，差別只在程度或語氣：
+
+- We essentially agree on this project. / We basically agree on this project.（我們基本上同意這個專案。）
+- The two devices are essentially the same. / The two devices are basically the same.（這兩個裝置基本上一樣。）*
+
+## 用法不同
+
+**1. fundamentally 表示「根本上」，不能用來表示「大致上」**
+
+- 對：The work is essentially finished. / The work is basically finished.*（工作基本上完成了。）
+- 不自然：The work is fundamentally finished.*
+
+**2. fundamentally 常搭配 different、disagree、change**
+
+- Capitalism and socialism are fundamentally different economic systems.（資本主義和社會主義是根本上完全不同的經濟體制。）
+- We fundamentally disagree on this project.（我們在這個專案上有根本的分歧。）
+- 這裡換成 basically 也不算錯，只是少了「根本上」的力道。
+
+## 常見語感參考
+
+| 單字 | 常見意思 | 常見搭配 |
 |---|---|---|
-| essentially | 核心本質（源自 essence）：最不可或缺的內在核心 | 指出外表下的真實內涵；深入剖析、看透本質 |
-| fundamentally | 底層根基（源自 fundamental）：最根本的原則，常暗示徹底、無法動搖的改變或差異 | 形容觀念、原則、結構的根本不同；常與 different、change 搭配 |
-| basically | 簡化細節（源自 basic）：把複雜的事用最簡單的方式講出來 | 日常口語的發語詞；總結或忽略次要細節 |
+| essentially | 實質上、核心上 | essentially the same |
+| fundamentally | 根本上、徹底地 | fundamentally different |
+| basically | 基本上、簡單來說（口語常用） | Basically, ... |
 
-## 同一句話換字
+## 詞性變化
 
-- We essentially agree on this project.
-  - 雖然執行細節（預算、時間）吵翻天，但核心目標是一致的。
-- We fundamentally disagree on this project.
-  - 兩人的價值觀或邏輯從最底層就衝突，這案子根本做不下去。
-- Basically, we disagree on this project.
-  - 長話短說：反正我們就是不合。略過所有原因，直接給簡單結論。
+- essential adj. 必要的 → essentially adv.
+- fundamental adj. 基本的、根本的 → fundamentally adv.
+- basic adj. 基本的 → basically adv.
 
-## 建議改記的中文
+## 翻譯與作文
 
-- essentially → 本質上、核心上
-- fundamentally → 根本上、徹底地
-- basically → 基本上、簡單來說
-
-## 常用搭配
-
-- **essentially the same**：本質上是一樣的
-  - The two smart home devices are essentially the same.（這兩款智慧家庭裝置本質上大同小異。）
-- **fundamentally different**：根本上不同
-  - Capitalism and socialism are fundamentally different economic systems.（資本主義和社會主義是根本上不同的經濟體制。）
-- **Basically, what I mean is...**：（口語）簡單來說，我的意思是……
+- 中文對應：「基本上、大致上」→ basically、essentially；「本質上」→ essentially；「根本上、徹底」→ fundamentally。
+- 翻譯示範：這兩種方法基本上是一樣的。
+  The two methods are essentially the same.*
+  「基本上」對應 essentially，放在 be 動詞後面修飾 the same。
+- 作文句型：___ and ___ are fundamentally different in ___.
+  - Online learning and traditional learning are fundamentally different in the way students interact.*

@@ -1,33 +1,51 @@
 ---
 title: achieve vs attain
 type: 辨析
-core: achieve 是克服困難後「實現」夢想、成功（結果導向）；attain 是「達到」具體的數字、年齡、高度、地位（門檻導向）。
+core: 兩字常可互換，achieve 學測更常見；attain 較書面，可接年齡、地位、速度，achieve 不接年齡。
 ---
 
-兩個都翻成「達成、達到」，但 achieve 側重經過長期努力、克服困難後獲得的成就；attain 偏向達到某個具體的標準、年齡、地位或高度。
+## 結論
 
-## 對比表
+- achieve 和 attain 都翻成「達成」「達到」，在 goal、success 這類名詞前常可互換。
+- achieve 在學測中遠比 attain 常見，作文優先用 achieve。
+- attain 比較書面，常接具體的標準，如年齡、速度、地位；achieve 不能接年齡。
 
-| 單字 | 核心本質 | 常見搭配 |
-|---|---|---|
-| achieve | 成就、結果導向：付出極大心力，最終克服萬難實現目標 | achieve a goal / dream（達成目標／夢想）；achieve success / balance（獲得成功／達到平衡） |
-| attain | 門檻、標準導向：經過一段過程，到達某個特定的數字、年齡、地位或高度 | attain a speed / temperature（達到某速度／溫度）；attain a rank / status（晉升到某職位／地位）；attain the age of 18（滿 18 歲） |
+## 可以混用
 
-## 同一句話換字
+- achieve a goal / attain a goal：都通順。
+- achieve success / attain success：都通順。
+- achieve independence / attain independence：都通順。*
+- He achieved a high position in the company. / He attained a high position in the company.：兩句都通順，意思幾乎相同。
 
-- He achieved a high position in the company.
-  - 強調他很拼命、打敗許多競爭對手、克服重重困難，才贏得這個高位。
-- He attained a high position in the company.
-  - 較中性，客觀陳述他到了這個位置。
+## 用法不同
 
-## 建議改記的中文
+**1. attain 可以接年齡，achieve 不行**
 
-- achieve → 實現、贏得：後面常接抽象但需要拼命努力的事物（夢想、獨立、成功）。
-- attain → 達到、滿足：後面常接具體、有衡量指標的事物（年齡、速度、分數、身分地位）。
+- 對：He attained the age of 18.*（他滿十八歲了；較書面，日常多說 reach the age of 18。）
+- 錯：He achieved the age of 18.
 
-## 常用片語
+**2. achieve 的固定片語**
 
-- **achieve one's full potential**：充分發揮潛能
+- achieve one's full potential：充分發揮潛能
   - Proper training will help you achieve your full potential.（適當的訓練能幫助你充分發揮潛能。）
-- **attain a goal**：goal 兩個字都可以接。achieve a goal 偏向你很努力實踐它；attain a goal 偏向你達到了設定的指標。
-- **attain independence**：獲得獨立（多用於國家或組織）
+
+## 核心對照
+
+| 單字 | 常見搭配 |
+|---|---|
+| achieve | achieve a goal / dream（達成目標、夢想）；achieve success（獲得成功）；achieve balance（達到平衡）；achieve one's full potential |
+| attain | attain a speed / temperature（達到某速度、溫度）；attain a rank / status（晉升到某職位、地位）；attain independence（獲得獨立）；attain the age of 18 |
+
+## 常見傾向（不是硬規則）
+
+- achieve 後面常接需要努力才能得到的抽象事物，如夢想、獨立、成功。
+- attain 後面常接有衡量標準的事物，如年齡、速度、分數、身分地位。
+
+## 翻譯與作文
+
+- 中文對應：「實現夢想、達成目標」→ achieve；「獲得成功」→ achieve success；「達到某個高度或地位」→ attain、reach。
+- 翻譯示範：只要努力不懈，你就能實現你的夢想。
+  As long as you work hard, you can achieve your dream.*
+  「實現」對應 achieve，夢想、目標、成功都可以接 achieve。
+- 作文句型：To achieve ___, we must ___.
+  - To achieve our goals, we must be willing to work hard.*
