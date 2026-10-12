@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Title fills whatever height the core leaves: auto-sized between 16sp and 28sp.
-     The core keeps one fixed size so the reading text never jumps around. -->
+<!-- Title: one line at the top, auto-sized to the width (18sp to 42sp).
+     Core: fixed 22sp, fills the rest; the number of lines is set from the widget height. -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/w_root"
     android:layout_width="match_parent"
@@ -8,17 +8,16 @@
     android:background="@drawable/widget_bg"
     android:orientation="vertical"
     android:paddingStart="20dp"
-    android:paddingTop="16dp"
+    android:paddingTop="14dp"
     android:paddingEnd="20dp"
     android:paddingBottom="18dp">
 
     <TextView
         android:id="@+id/w_title"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:autoSizeMaxTextSize="28sp"
-        android:autoSizeMinTextSize="16sp"
+        android:layout_height="@dimen/widget_title_box"
+        android:autoSizeMaxTextSize="42sp"
+        android:autoSizeMinTextSize="18sp"
         android:autoSizeStepGranularity="1sp"
         android:autoSizeTextType="uniform"
         android:ellipsize="end"
@@ -31,11 +30,13 @@
     <TextView
         android:id="@+id/w_core"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="6dp"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_marginTop="4dp"
         android:ellipsize="end"
-        android:lineSpacingMultiplier="1.2"
-        android:maxLines="4"
+        android:gravity="top"
+        android:lineSpacingMultiplier="1.15"
+        android:maxLines="3"
         android:textColor="@color/fg_soft"
-        android:textSize="15sp" />
+        android:textSize="@dimen/widget_core_text" />
 </LinearLayout>
