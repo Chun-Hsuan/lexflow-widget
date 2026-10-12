@@ -5,6 +5,7 @@
     <string name="understood">Done</string>
     <string name="close">Close</string>
     <string name="library_title">筆記庫</string>
+    <string name="search_entry">搜尋</string>
     <string name="star_add_title">加入星號？</string>
     <string name="star_add_body">這則會出現在筆記庫的「星號」裡，方便之後找。</string>
     <string name="star_add">加入</string>

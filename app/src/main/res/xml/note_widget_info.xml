@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
-    android:configure="com.lexflow.widget.LibraryActivity"
+    android:configure="com.lexflow.widget.SearchEntry"
     android:description="@string/widget_desc"
     android:initialLayout="@layout/widget"
     android:minWidth="250dp"
