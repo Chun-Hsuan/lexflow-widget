@@ -11,8 +11,7 @@ import android.widget.RemoteViews;
 
 /**
  * Home screen widget: shows the current note's type, title and one-line core.
- * One-line title at the top auto-sizes to the width; the core keeps a fixed size
- * and gets as many lines as the widget height allows.
+ * Dark card: one-line title, up to three lines of core, vertically centered.
  */
 public class NoteWidget extends AppWidgetProvider {
 
@@ -65,7 +64,6 @@ public class NoteWidget extends AppWidgetProvider {
             RemoteViews v = new RemoteViews(c.getPackageName(), R.layout.widget);
             v.setTextViewText(R.id.w_title, title);
             v.setTextViewText(R.id.w_core, core);
-            v.setInt(R.id.w_core, "setMaxLines", coreLines(c, manager.getAppWidgetOptions(id)));
 
             // After today's limit the widget only shows the end message; tapping does nothing.
             // updateAppWidget replaces the whole view, so leaving out the click clears it.
@@ -78,23 +76,5 @@ public class NoteWidget extends AppWidgetProvider {
             }
             manager.updateAppWidget(id, v);
         }
-    }
-
-    /** How many core lines fit under the title, from the widget height in dp. */
-    private static int coreLines(Context c, Bundle options) {
-        int h = 0;
-        if (options != null) {
-            // Portrait home screens report their real height as MAX_HEIGHT.
-            h = Math.max(options.getInt(AppWidgetManager.OPTION_APPWIDGET_MAX_HEIGHT, 0),
-                    options.getInt(AppWidgetManager.OPTION_APPWIDGET_MIN_HEIGHT, 0));
-        }
-        if (h <= 0) return 3;
-        float density = c.getResources().getDisplayMetrics().density;
-        float titleBox = c.getResources().getDimension(R.dimen.widget_title_box) / density;
-        float textDp = c.getResources().getDimension(R.dimen.widget_core_text) / density; // includes font scale
-        float lineDp = textDp * 1.17f * 1.15f; // font line height x lineSpacingMultiplier
-        float room = h - 14f - 18f - titleBox - 4f;
-        int lines = (int) Math.floor(room / lineDp);
-        return Math.max(1, Math.min(lines, 8));
     }
 }
