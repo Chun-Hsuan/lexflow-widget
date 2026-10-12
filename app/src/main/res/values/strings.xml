@@ -1,8 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">LexFlow 筆記</string>
-    <string name="widget_desc">每次顯示一則英文筆記，讀完按 Done 就換下一則</string>
+    <string name="widget_desc">每次顯示一則英文筆記，讀完按住 Done 就換下一則</string>
     <string name="understood">Done</string>
+    <string name="close">Close</string>
+    <string name="library_title">筆記庫</string>
+    <string name="star_add_title">加入星號？</string>
+    <string name="star_add_body">這則會出現在筆記庫的「星號」裡，方便之後找。</string>
+    <string name="star_add">加入</string>
+    <string name="star_remove_title">移除星號？</string>
+    <string name="star_remove_body">這則會從筆記庫的「星號」裡拿掉。</string>
+    <string name="star_remove">移除</string>
+    <string name="cancel">取消</string>
     <string name="end_title">That\'s all for today.</string>
     <string name="end_body">See you tomorrow.</string>
     <string name="shortcut_color">設定</string>

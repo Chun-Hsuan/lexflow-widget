@@ -9,20 +9,33 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
-    <TextView
-        android:id="@+id/btn_understood"
-        android:layout_width="64dp"
-        android:layout_height="64dp"
+    <!-- Round button bottom-right. Hold 0.6 s: Done (or Close when browsing). Double tap: star.
+         The ring around it fills while held. Same center as the old 64dp button. -->
+    <FrameLayout
+        android:layout_width="88dp"
+        android:layout_height="88dp"
         android:layout_gravity="bottom|end"
-        android:layout_marginEnd="20dp"
-        android:layout_marginBottom="24dp"
-        android:background="@drawable/fab_bg"
-        android:clickable="true"
-        android:elevation="6dp"
-        android:focusable="true"
-        android:gravity="center"
-        android:text="@string/understood"
-        android:textColor="@color/on_accent"
-        android:textSize="16sp"
-        android:textStyle="bold" />
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="12dp">
+
+        <com.lexflow.widget.HoldRing
+            android:id="@+id/ring"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <TextView
+            android:id="@+id/btn_understood"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:layout_gravity="center"
+            android:background="@drawable/fab_bg"
+            android:clickable="true"
+            android:elevation="6dp"
+            android:focusable="true"
+            android:gravity="center"
+            android:text="@string/understood"
+            android:textColor="@color/on_accent"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+    </FrameLayout>
 </FrameLayout>

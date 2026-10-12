@@ -67,15 +67,15 @@ public class NoteWidget extends AppWidgetProvider {
             v.setTextViewText(R.id.w_title, title);
             v.setTextViewText(R.id.w_core, core);
 
-            // After today's limit the widget only shows the end message; tapping does nothing.
-            // updateAppWidget replaces the whole view, so leaving out the click clears it.
-            if (!finished) {
-                Intent open = new Intent(c, DetailActivity.class);
-                open.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                PendingIntent pi = PendingIntent.getActivity(
-                        c, 0, open, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
-                v.setOnClickPendingIntent(R.id.w_root, pi);
-            }
+            // Tap: today's note. After today's limit the widget shows the end message and a tap
+            // opens the library instead.
+            Intent open = finished
+                    ? new Intent(c, LibraryActivity.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                    : new Intent(c, DetailActivity.class)
+                    .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            PendingIntent pi = PendingIntent.getActivity(
+                    c, finished ? 1 : 0, open, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
+            v.setOnClickPendingIntent(R.id.w_root, pi);
             manager.updateAppWidget(id, v);
         }
     }

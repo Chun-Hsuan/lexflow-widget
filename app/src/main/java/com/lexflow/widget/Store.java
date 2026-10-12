@@ -16,9 +16,12 @@ import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
+import java.util.Set;
 
 /**
  * Notes and reading progress.
@@ -47,6 +50,7 @@ public final class Store {
     private static final String PREFS = "lexflow_state";
     private static final String KEY_LIMIT = "dailyLimit";
     private static final String KEY_STATE = "state";
+    private static final String KEY_STARS = "stars";
     private static final String NOTES_FILE = "notes.json";
 
     public static final class Note {
@@ -111,6 +115,54 @@ public final class Store {
         Data d = load(c);
         if (ensureCurrent(d, System.currentTimeMillis(), today())) save(c, d);
         return d.find(d.currentId());
+    }
+
+    /** Every note, in file order. Reading them never touches the schedule. */
+    public static synchronized List<Note> all(Context c) {
+        return load(c).notes;
+    }
+
+    /** One note by id, or null if it was deleted. */
+    public static synchronized Note find(Context c, String id) {
+        return load(c).find(id);
+    }
+
+    /** All notes as JSON for the library page: id, title, type, core, html. */
+    public static synchronized String notesJson(Context c) {
+        JSONArray arr = new JSONArray();
+        try {
+            for (Note n : load(c).notes) {
+                arr.put(new JSONObject()
+                        .put("id", n.id).put("title", n.title).put("type", n.type)
+                        .put("core", n.core).put("html", n.html));
+            }
+        } catch (JSONException ignored) {
+        }
+        return arr.toString();
+    }
+
+    // ----------------------------------------------------------------- stars
+
+    /** Starred note ids. Stars are bookmarks only: they never change the schedule. */
+    public static synchronized Set<String> stars(Context c) {
+        return new HashSet<>(c.getSharedPreferences(PREFS, Context.MODE_PRIVATE)
+                .getStringSet(KEY_STARS, Collections.emptySet()));
+    }
+
+    public static synchronized boolean isStarred(Context c, String id) {
+        return id != null && stars(c).contains(id);
+    }
+
+    public static synchronized void setStarred(Context c, String id, boolean on) {
+        if (id == null) return;
+        Set<String> s = stars(c);
+        if (on) s.add(id); else s.remove(id);
+        c.getSharedPreferences(PREFS, Context.MODE_PRIVATE).edit().putStringSet(KEY_STARS, s).commit();
+    }
+
+    /** Starred ids as a JSON array for the library page. */
+    public static synchronized String starsJson(Context c) {
+        return new JSONArray(stars(c)).toString();
     }
 
     /** The daily limit chosen in settings; 0 means no limit. */

@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<!--
+  筆記庫 (LibraryActivity). Search box + note list, side menu with categories, stars and settings.
+  The app fills in NOTES and STARS where the DATA comment is. Calls back through window.Lex:
+  Lex.open(id) opens a note in browse mode, Lex.settings() opens the settings screen.
+-->
+<style>
+:root{
+  --paper:#F9F8F5; --paper-2:#FCFAF6; --ink:#1B1F24; --muted:#5A6370; --faint:#8A919B; --accent:#3A3F47;
+  --line:rgba(58,63,71,.14); --accent-soft:rgba(58,63,71,.08); --mark:rgba(234,187,134,.45);
+}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0}
+html{-webkit-text-size-adjust:100%}
+body{background:linear-gradient(180deg,var(--paper),var(--paper-2));color:var(--ink);font-family:sans-serif;
+  display:flex;flex-direction:column;overflow:hidden;-webkit-tap-highlight-color:transparent}
+button{font:inherit;color:inherit;background:none;border:0;padding:0}
+
+.head{flex:0 0 auto;padding:14px 16px 12px;display:flex;flex-direction:column;gap:12px;border-bottom:1px solid var(--line);background:var(--paper)}
+.toprow{display:flex;align-items:center;gap:10px}
+#menuBtn{width:44px;height:44px;border-radius:14px;display:grid;place-items:center;margin-left:-8px}
+#menuBtn:active{background:var(--accent-soft)}
+#menuBtn svg{width:24px;height:24px}
+#title{margin:0;font-size:24px;font-weight:700}
+.searchbox{display:flex;align-items:center;gap:8px;background:#fff;border:1px solid var(--line);border-radius:14px;padding:0 12px;height:48px}
+.searchbox svg{width:20px;height:20px;flex:0 0 auto;color:var(--muted)}
+#q{flex:1;min-width:0;border:0;outline:0;background:transparent;font:inherit;font-size:17px;color:var(--ink);-webkit-appearance:none}
+#q::placeholder{color:#9AA1AB}
+#q::-webkit-search-cancel-button{display:none}
+#clearQ{width:28px;height:28px;border-radius:50%;display:grid;place-items:center;color:var(--muted)}
+#clearQ svg{width:16px;height:16px}
+#info{font-size:13px;color:var(--muted);margin-top:-4px}
+[hidden]{display:none!important}
+
+#list{flex:1;overflow:auto;padding:0 16px 32px}
+.row{width:100%;text-align:left;padding:14px 0;border-bottom:1px solid var(--line);display:flex;flex-direction:column;gap:5px}
+.row:active{background:var(--accent-soft)}
+.rowtop{display:flex;align-items:center;gap:8px}
+.tag{display:inline-block;font-size:12px;font-weight:700;letter-spacing:.08em;color:var(--accent);background:var(--accent-soft);padding:2px 10px;border-radius:999px}
+.star{width:17px;height:17px;color:var(--accent);flex:0 0 auto;margin-left:auto}
+.rtitle{font-size:18px;font-weight:700;line-height:1.35}
+.rcore{font-size:15px;line-height:1.55;color:var(--muted);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.rsnip{font-size:14px;line-height:1.55;color:var(--muted);padding-left:10px;border-left:2px solid var(--line)}
+mark{background:var(--mark);color:inherit;border-radius:3px;padding:0 1px}
+.empty{padding:40px 8px;color:var(--muted);font-size:15.5px;line-height:1.7;text-align:center}
+
+#scrim{position:fixed;inset:0;background:rgba(27,31,36,.32);z-index:4;opacity:0;pointer-events:none;transition:opacity .25s}
+#scrim.on{opacity:1;pointer-events:auto}
+#drawer{position:fixed;top:0;bottom:0;left:0;width:78%;max-width:320px;background:var(--paper);z-index:5;transform:translateX(-102%);
+  transition:transform .28s cubic-bezier(.2,.7,.2,1);display:flex;flex-direction:column;padding:22px 12px 18px;box-shadow:4px 0 24px rgba(27,31,36,.12)}
+#drawer.on{transform:none}
+.dname{font-size:22px;font-weight:700;color:var(--ink);padding:4px 0 16px;margin:0 12px 10px;border-bottom:1px solid var(--line)}
+.ditem{display:flex;align-items:center;gap:6px;width:100%;padding:13px 12px;border-radius:14px;font-size:17px;text-align:left}
+.ditem[aria-current="true"]{background:var(--accent-soft);font-weight:700}
+.dcount{margin-left:auto;font-size:14px;font-weight:400;color:var(--faint);font-variant-numeric:tabular-nums}
+.dsep{height:1px;background:var(--line);margin:10px 12px}
+.dbottom{margin-top:auto}
+@media (prefers-reduced-motion:reduce){#drawer,#scrim{transition:none}}
+</style>
+</head>
+<body>
+<div class="head">
+  <div class="toprow">
+    <button id="menuBtn" type="button" aria-label="選單"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+    <h1 id="title">全部筆記</h1>
+  </div>
+  <label class="searchbox" for="q">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4 4"/></svg>
+    <input id="q" type="search" placeholder="搜尋英文或中文" autocomplete="off" autocapitalize="off" spellcheck="false" enterkeyhint="search">
+    <button id="clearQ" type="button" aria-label="清除" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+  </label>
+  <div id="info" hidden></div>
+</div>
+<div id="list"></div>
+
+<div id="scrim"></div>
+<nav id="drawer" aria-label="分類">
+  <div class="dname">LexFlow 筆記</div>
+  <div id="dlist"></div>
+  <div class="dbottom">
+    <div class="dsep"></div>
+    <button class="ditem" id="dSettings" type="button"><span>設定</span></button>
+  </div>
+</nav>
+
+<script>/*DATA*/</script>
+<script>
+(function(){
+var STAR_SVG = '<svg class="star" viewBox="0 0 24 24" aria-label="已加星號"><path fill="currentColor" d="M12 3.2l2.6 5.4 5.9.8-4.3 4.1 1 5.9L12 16.6l-5.3 2.8 1-5.9-4.3-4.1 5.9-.8z"/></svg>';
+var FILTERS = [
+  { key:'all', name:'全部筆記', label:'全部' },
+  { key:'辨析', name:'辨析', label:'辨析' },
+  { key:'句型', name:'句型', label:'句型' },
+  { key:'文法', name:'文法', label:'文法' },
+  { key:'字詞', name:'字詞', label:'字詞' },
+  { key:'star', name:'星號', label:'星號' }
+];
+var $ = function(id){ return document.getElementById(id); };
+var notes = [], stars = {}, filter = 'all';
+try { filter = sessionStorage.getItem('filter') || 'all'; } catch (e) {}
+
+function esc(s){ return String(s).replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
+
+function prepare(list){
+  var tmp = document.createElement('div');
+  list.forEach(function(n, i){
+    n.order = i;
+    tmp.innerHTML = n.html;
+    n.text = tmp.textContent.replace(/\s+/g, ' ');
+    n.lowTitle = n.title.toLowerCase();
+    n.lowCore = n.core.toLowerCase();
+    n.lowText = n.text.toLowerCase();
+    n.parts = n.lowTitle.split(/[：:、\/（）()]|\s+vs\s+|\s+與\s+/).map(function(s){ return s.trim(); }).filter(Boolean);
+    n.html = null; // only the plain text is needed here
+  });
+  return list;
+}
+
+// English keywords match from the start of a word (as finds "as if", not "cease"); Chinese matches anywhere.
+function findAt(low, q, from){
+  var latin = /^[a-z0-9]/.test(q), j = low.indexOf(q, from || 0);
+  while (latin && j > 0 && /[a-z0-9]/.test(low.charAt(j - 1))) j = low.indexOf(q, j + 1);
+  return j;
+}
+// 0 title is the keyword, 1 title starts with it, 2 title contains it, 3 summary, 4 body, -1 no match
+function rankOf(n, q){
+  if (n.lowTitle === q || n.parts.indexOf(q) >= 0) return 0;
+  if (n.lowTitle.indexOf(q) === 0) return 1;
+  if (findAt(n.lowTitle, q) > 0) return 2;
+  if (findAt(n.lowCore, q) >= 0) return 3;
+  if (findAt(n.lowText, q) >= 0) return 4;
+  return -1;
+}
+function hl(text, q){
+  if (!q) return esc(text);
+  var low = text.toLowerCase(), out = '', i = 0, j;
+  while ((j = findAt(low, q, i)) >= 0) { out += esc(text.slice(i, j)) + '<mark>' + esc(text.slice(j, j + q.length)) + '</mark>'; i = j + q.length; }
+  return out + esc(text.slice(i));
+}
+function snippet(text, q){
+  var j = findAt(text.toLowerCase(), q), a = Math.max(0, j - 22), b = Math.min(text.length, j + q.length + 30);
+  return (a > 0 ? '…' : '') + hl(text.slice(a, b), q) + (b < text.length ? '…' : '');
+}
+function inView(n, key){
+  key = key || filter;
+  if (key === 'all') return true;
+  if (key === 'star') return !!stars[n.id];
+  return n.type === key;
+}
+
+function render(){
+  var f = FILTERS.filter(function(x){ return x.key === filter; })[0] || FILTERS[0];
+  $('title').textContent = f.name;
+  var raw = $('q').value.trim(), q = raw.toLowerCase();
+  $('clearQ').hidden = !raw;
+  var items;
+  if (q) {
+    // A keyword searches every note: title level first, then this page's notes, then file order.
+    items = notes.map(function(n){ return { n:n, r:rankOf(n, q), v:inView(n) ? 0 : 1 }; })
+      .filter(function(x){ return x.r >= 0; })
+      .sort(function(a, b){ return a.r - b.r || a.v - b.v || a.n.order - b.n.order; });
+  } else {
+    items = notes.filter(function(n){ return inView(n); }).map(function(n){ return { n:n, r:-1 }; });
+  }
+  var info = $('info');
+  info.hidden = !q || !items.length;
+  if (q) info.textContent = '找到 ' + items.length + ' 則'
+    + (filter === 'all' ? '' : filter === 'star' ? '，有星號的排在同一層前面' : '，' + f.label + '的排在同一層前面');
+  var list = $('list');
+  if (!items.length) {
+    list.innerHTML = q
+      ? '<div class="empty">找不到「' + esc(raw) + '」。<br>可以只打單字的前半，例如 accompl。</div>'
+      : filter === 'star'
+        ? '<div class="empty">還沒有加星號的筆記。<br>在筆記頁點兩下右下角的按鈕，就能加進這裡。</div>'
+        : '<div class="empty">這個分類還沒有筆記。</div>';
+    return;
+  }
+  list.innerHTML = items.map(function(x){
+    var n = x.n;
+    return '<button class="row" type="button" data-id="' + esc(n.id) + '">'
+      + '<div class="rowtop"><span class="tag">' + esc(n.type) + '</span>' + (stars[n.id] ? STAR_SVG : '') + '</div>'
+      + '<div class="rtitle">' + hl(n.title, q) + '</div>'
+      + '<div class="rcore">' + hl(n.core, x.r === 3 ? q : '') + '</div>'
+      + (x.r === 4 ? '<div class="rsnip">' + snippet(n.text, q) + '</div>' : '')
+      + '</button>';
+  }).join('');
+}
+
+function drawDrawer(){
+  $('dlist').innerHTML = FILTERS.map(function(f){
+    var count = notes.filter(function(n){ return inView(n, f.key); }).length;
+    return (f.key === 'star' ? '<div class="dsep"></div>' : '')
+      + '<button class="ditem" type="button" data-f="' + f.key + '" aria-current="' + (filter === f.key) + '">'
+      + '<span>' + f.label + '</span><span class="dcount">' + count + '</span></button>';
+  }).join('');
+}
+function openDrawer(){ drawDrawer(); $('q').blur(); $('drawer').classList.add('on'); $('scrim').classList.add('on'); }
+function closeDrawer(){ $('drawer').classList.remove('on'); $('scrim').classList.remove('on'); }
+
+$('menuBtn').addEventListener('click', openDrawer);
+$('scrim').addEventListener('click', closeDrawer);
+$('dlist').addEventListener('click', function(e){
+  var b = e.target.closest('[data-f]'); if (!b) return;
+  filter = b.getAttribute('data-f');
+  try { sessionStorage.setItem('filter', filter); } catch (err) {}
+  closeDrawer(); render(); $('list').scrollTop = 0;
+});
+$('dSettings').addEventListener('click', function(){ closeDrawer(); if (window.Lex) Lex.settings(); });
+$('q').addEventListener('input', function(){ render(); $('list').scrollTop = 0; });
+$('q').addEventListener('keydown', function(e){ if (e.key === 'Enter') this.blur(); });
+$('clearQ').addEventListener('click', function(e){ e.preventDefault(); $('q').value = ''; render(); $('list').scrollTop = 0; $('q').focus(); });
+$('list').addEventListener('click', function(e){
+  var b = e.target.closest('[data-id]'); if (!b) return;
+  if (window.Lex) Lex.open(b.getAttribute('data-id'));
+});
+
+// Called by the app.
+window.setNotes = function(list){ notes = prepare(list); render(); };
+window.setStars = function(ids){
+  stars = {}; ids.forEach(function(id){ stars[id] = true; });
+  render();
+  if ($('drawer').classList.contains('on')) drawDrawer();
+};
+window.focusSearch = function(){ $('q').focus(); };
+/** Android back: closes the side menu first. Returns true if it did something. */
+window.handleBack = function(){
+  if ($('drawer').classList.contains('on')) { closeDrawer(); return true; }
+  return false;
+};
+
+notes = prepare(window.NOTES || []);
+(window.STARS || []).forEach(function(id){ stars[id] = true; });
+render();
+})();
+</script>
+</body>
+</html>

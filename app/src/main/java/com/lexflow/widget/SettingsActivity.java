@@ -16,7 +16,7 @@ import android.widget.Toast;
 
 /**
  * Settings: the widget's background color (three sliders, live preview) and the daily limit.
- * Also the widget's configure screen (long-press the widget, then its settings).
+ * Opened from the library's side menu and from the app icon's long-press shortcut.
  */
 public class SettingsActivity extends Activity {
 

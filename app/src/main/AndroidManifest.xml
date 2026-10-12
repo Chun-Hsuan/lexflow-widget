@@ -10,27 +10,42 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme">
 
+        <!-- 筆記庫: the app icon opens it, and so does the widget's long-press "設定" entry
+             (APPWIDGET_CONFIGURE), which starts with the keyboard up for searching. -->
         <activity
-            android:name=".DetailActivity"
+            android:name=".LibraryActivity"
             android:exported="true"
-            android:launchMode="singleTask">
+            android:windowSoftInputMode="adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
             </intent-filter>
             <meta-data
                 android:name="android.app.shortcuts"
                 android:resource="@xml/shortcuts" />
         </activity>
 
+        <!-- Today's note, opened from the widget. Its own task, so finishing it goes back to the
+             home screen rather than to the library. -->
+        <activity
+            android:name=".DetailActivity"
+            android:excludeFromRecents="true"
+            android:exported="false"
+            android:launchMode="singleTask"
+            android:taskAffinity="com.lexflow.widget.review" />
+
+        <!-- A note opened from the library (browse mode). -->
+        <activity
+            android:name=".BrowseActivity"
+            android:exported="false" />
+
         <activity
             android:name=".SettingsActivity"
             android:exported="true"
-            android:label="@string/settings_title">
-            <intent-filter>
-                <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
-            </intent-filter>
-        </activity>
+            android:label="@string/settings_title" />
 
         <receiver
             android:name=".NoteWidget"
