@@ -6,6 +6,8 @@ plugins {
 def notesUrl = project.findProperty('notesUrl') ?: ''
 def runNumber = (System.getenv('GITHUB_RUN_NUMBER') ?: '1') as Integer
 def keystoreFile = System.getenv('KEYSTORE_FILE')
+// Notes per day; 0 = no limit. Set by the workflow with -PdailyLimit=5.
+def dailyLimit = (project.findProperty('dailyLimit') ?: '0') as Integer
 
 android {
     namespace 'com.lexflow.widget'
@@ -18,6 +20,7 @@ android {
         versionCode runNumber
         versionName "1.0.${runNumber}"
         buildConfigField 'String', 'NOTES_URL', "\"${notesUrl}\""
+        buildConfigField 'int', 'DAILY_LIMIT', "${dailyLimit}"
     }
 
     buildFeatures {

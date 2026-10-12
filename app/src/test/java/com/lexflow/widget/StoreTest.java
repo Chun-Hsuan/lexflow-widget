@@ -114,6 +114,7 @@ public class StoreTest {
 
     @Test
     public void fiveDoneTapsFinishTheDay() {
+        Store.dailyLimit = 5;
         Store.Data d = data(8);
         Store.ensureCurrent(d, T0, D1);
         for (int i = 0; i < 5; i++) {
@@ -129,6 +130,7 @@ public class StoreTest {
 
     @Test
     public void nextDayUnlocksAndRestartsTimer() {
+        Store.dailyLimit = 5;
         Store.Data d = data(8);
         Store.ensureCurrent(d, T0, D1);
         for (int i = 0; i < 5; i++) Store.applyUnderstood(d, d.currentId(), T0, D1);
@@ -140,5 +142,20 @@ public class StoreTest {
         assertEquals(nextMorning, d.state.optLong("shownSince"));
         assertEquals(1, Store.applyUnderstood(d, waiting, nextMorning + 1, D2));
         assertEquals(1, d.state.optInt("count", 0)); // count restarted for the new day
+    }
+
+    @Test
+    public void noLimitNeverLocksAndClearsOldLock() {
+        Store.dailyLimit = 5;
+        Store.Data d = data(8);
+        Store.ensureCurrent(d, T0, D1);
+        for (int i = 0; i < 5; i++) Store.applyUnderstood(d, d.currentId(), T0, D1);
+        assertEquals(true, Store.isLocked(d, D1));
+        Store.dailyLimit = 0; // the no-limit build is installed over the old one
+        assertEquals(false, Store.isLocked(d, D1));
+        for (int i = 0; i < 7; i++) {
+            assertNotEquals(0, Store.applyUnderstood(d, d.currentId(), T0 + 100, D1));
+        }
+        assertEquals(false, Store.isLocked(d, D1));
     }
 }

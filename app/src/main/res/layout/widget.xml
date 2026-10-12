@@ -4,11 +4,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/widget_bg"
+    android:gravity="center_vertical"
     android:orientation="vertical"
-    android:paddingStart="18dp"
-    android:paddingTop="14dp"
-    android:paddingEnd="18dp"
-    android:paddingBottom="14dp">
+    android:paddingStart="20dp"
+    android:paddingTop="18dp"
+    android:paddingEnd="20dp"
+    android:paddingBottom="18dp">
 
     <TextView
         android:id="@+id/w_type"
@@ -16,30 +17,30 @@
         android:layout_height="wrap_content"
         android:letterSpacing="0.08"
         android:text="@string/app_name"
-        android:textColor="@color/accent"
-        android:textSize="12sp"
+        android:textColor="@color/widget_label"
+        android:textSize="13sp"
         android:textStyle="bold" />
 
     <TextView
         android:id="@+id/w_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="6dp"
         android:ellipsize="end"
         android:maxLines="2"
         android:text="@string/loading"
         android:textColor="@color/fg"
-        android:textSize="17sp"
+        android:textSize="22sp"
         android:textStyle="bold" />
 
     <TextView
         android:id="@+id/w_core"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="6dp"
+        android:layout_marginTop="8dp"
         android:ellipsize="end"
         android:lineSpacingMultiplier="1.2"
-        android:maxLines="6"
+        android:maxLines="5"
         android:textColor="@color/fg_soft"
-        android:textSize="14sp" />
+        android:textSize="17sp" />
 </LinearLayout>

@@ -29,8 +29,8 @@ import java.util.Locale;
  * - A note left untouched for 24 hours is swapped out and sent to the back.
  * - Next note: a review that is due first, otherwise an unread note,
  *   otherwise the review that comes due soonest.
- * - At most 5 Done taps per day. After the 5th, the app shows an end-of-day
- *   screen until midnight, and the 24-hour swap timer pauses.
+ * - Optional daily limit (dailyLimit Done taps). After the last one, the app shows
+ *   an end-of-day screen until midnight, and the 24-hour swap timer pauses.
  */
 public final class Store {
 
@@ -38,7 +38,8 @@ public final class Store {
     static final long DAY = 24L * HOUR;
     static final long SWAP_AFTER = DAY;
     static final int[] INTERVAL_DAYS = {1, 3, 7, 14, 30};
-    static final int DAILY_LIMIT = 5;
+    /** Done taps allowed per day; 0 means no limit. */
+    static int dailyLimit = BuildConfig.DAILY_LIMIT;
 
     private static final String PREFS = "lexflow_state";
     private static final String KEY_STATE = "state";
@@ -142,7 +143,7 @@ public final class Store {
             count++;
             d.state.put("countDay", today);
             d.state.put("count", count);
-            if (count >= DAILY_LIMIT) d.state.put("lockDay", today);
+            if (dailyLimit > 0 && count >= dailyLimit) d.state.put("lockDay", today);
             return days;
         } catch (JSONException e) {
             return 0;
@@ -186,6 +187,10 @@ public final class Store {
             return true;
         }
         String lock = d.state.optString("lockDay", "");
+        if (!lock.isEmpty() && dailyLimit <= 0) {
+            d.state.remove("lockDay"); // limit turned off: unlock right away
+            return true;
+        }
         if (!lock.isEmpty()) {
             if (lock.equals(today)) return false; // finished for today: timer paused
             // A new day after a finished one: start the waiting note's 24 hours now.
@@ -212,7 +217,7 @@ public final class Store {
     }
 
     static boolean isLocked(Data d, String today) {
-        return today.equals(d.state.optString("lockDay", ""));
+        return dailyLimit > 0 && today.equals(d.state.optString("lockDay", ""));
     }
 
     static String today() {
