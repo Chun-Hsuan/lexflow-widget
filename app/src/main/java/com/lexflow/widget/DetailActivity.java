@@ -95,8 +95,7 @@ public class DetailActivity extends Activity {
                     + "<p class=\"core\">" + esc(getString(R.string.empty_body)) + "</p></header>";
         } else {
             body = "<header><span class=\"tag\">" + esc(n.type) + "</span>"
-                    + "<h1>" + esc(n.title) + "</h1>"
-                    + "<p class=\"core\">" + esc(n.core) + "</p></header>"
+                    + "<h1>" + esc(n.title) + "</h1></header>" // the summary lives on the widget only
                     + "<article>" + n.html + "</article>";
         }
         String html = "<!doctype html><html><head><meta charset=\"utf-8\">"
