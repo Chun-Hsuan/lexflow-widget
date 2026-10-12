@@ -14,8 +14,11 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Notes and reading progress.
@@ -26,6 +29,8 @@ import java.util.List;
  * - A note left untouched for 24 hours is swapped out and sent to the back.
  * - Next note: a review that is due first, otherwise an unread note,
  *   otherwise the review that comes due soonest.
+ * - At most 5 Done taps per day. After the 5th, the app shows an end-of-day
+ *   screen until midnight, and the 24-hour swap timer pauses.
  */
 public final class Store {
 
@@ -33,6 +38,7 @@ public final class Store {
     static final long DAY = 24L * HOUR;
     static final long SWAP_AFTER = DAY;
     static final int[] INTERVAL_DAYS = {1, 3, 7, 14, 30};
+    static final int DAILY_LIMIT = 5;
 
     private static final String PREFS = "lexflow_state";
     private static final String KEY_STATE = "state";
@@ -44,11 +50,6 @@ public final class Store {
         public String type;
         public String core;
         public String html;
-    }
-
-    public static final class Progress {
-        public int understood;
-        public int total;
     }
 
     static final class Data {
@@ -103,8 +104,13 @@ public final class Store {
     /** The note to show now. Applies the 24-hour swap rule. */
     public static synchronized Note current(Context c) {
         Data d = load(c);
-        if (ensureCurrent(d, System.currentTimeMillis())) save(c, d);
+        if (ensureCurrent(d, System.currentTimeMillis(), today())) save(c, d);
         return d.find(d.currentId());
+    }
+
+    /** True once today's 5 Done taps are used up. */
+    public static synchronized boolean finishedToday(Context c) {
+        return isLocked(load(c), today());
     }
 
     /**
@@ -114,13 +120,14 @@ public final class Store {
      */
     public static synchronized int understood(Context c, String noteId) {
         Data d = load(c);
-        int days = applyUnderstood(d, noteId, System.currentTimeMillis());
+        int days = applyUnderstood(d, noteId, System.currentTimeMillis(), today());
         if (days > 0) save(c, d);
         return days;
     }
 
-    static int applyUnderstood(Data d, String noteId, long now) {
-        ensureCurrent(d, now);
+    static int applyUnderstood(Data d, String noteId, long now, String today) {
+        ensureCurrent(d, now, today);
+        if (isLocked(d, today)) return 0;
         String cur = d.currentId();
         if (noteId == null || !noteId.equals(cur)) return 0;
         try {
@@ -131,20 +138,15 @@ public final class Store {
             it.put("due", now + days * DAY);
             it.put("skippedAt", 0);
             setCurrent(d, pickNext(d, cur, now), now);
+            int count = today.equals(d.state.optString("countDay", "")) ? d.state.optInt("count", 0) : 0;
+            count++;
+            d.state.put("countDay", today);
+            d.state.put("count", count);
+            if (count >= DAILY_LIMIT) d.state.put("lockDay", today);
             return days;
         } catch (JSONException e) {
             return 0;
         }
-    }
-
-    public static synchronized Progress progress(Context c) {
-        Data d = load(c);
-        Progress p = new Progress();
-        p.total = d.notes.size();
-        for (Note n : d.notes) {
-            if (d.item(n.id).optInt("level", 0) > 0) p.understood++;
-        }
-        return p;
     }
 
     /**
@@ -176,11 +178,19 @@ public final class Store {
     // ------------------------------------------------------------- scheduling
 
     /** Makes sure there is a valid current note. Returns true if state changed. */
-    static boolean ensureCurrent(Data d, long now) {
+    static boolean ensureCurrent(Data d, long now, String today) {
         if (d.notes.isEmpty()) return false;
         String cur = d.currentId();
         if (d.find(cur) == null) {
             setCurrent(d, pickNext(d, null, now), now);
+            return true;
+        }
+        String lock = d.state.optString("lockDay", "");
+        if (!lock.isEmpty()) {
+            if (lock.equals(today)) return false; // finished for today: timer paused
+            // A new day after a finished one: start the waiting note's 24 hours now.
+            d.state.remove("lockDay");
+            setCurrent(d, cur, now);
             return true;
         }
         long since = d.state.optLong("shownSince", now);
@@ -199,6 +209,14 @@ public final class Store {
         }
         setCurrent(d, pickNext(d, cur, now), now);
         return true;
+    }
+
+    static boolean isLocked(Data d, String today) {
+        return today.equals(d.state.optString("lockDay", ""));
+    }
+
+    static String today() {
+        return new SimpleDateFormat("yyyy-MM-dd", Locale.US).format(new Date());
     }
 
     static String pickNext(Data d, String exclude, long now) {

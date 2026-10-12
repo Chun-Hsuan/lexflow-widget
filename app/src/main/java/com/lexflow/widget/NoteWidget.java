@@ -39,7 +39,11 @@ public class NoteWidget extends AppWidgetProvider {
     private static void render(Context c, AppWidgetManager manager, int[] ids) {
         RemoteViews v = new RemoteViews(c.getPackageName(), R.layout.widget);
         Store.Note n = Store.current(c);
-        if (n == null) {
+        if (Store.finishedToday(c)) {
+            v.setTextViewText(R.id.w_type, c.getString(R.string.app_name));
+            v.setTextViewText(R.id.w_title, c.getString(R.string.end_title));
+            v.setTextViewText(R.id.w_core, c.getString(R.string.end_body));
+        } else if (n == null) {
             v.setTextViewText(R.id.w_type, c.getString(R.string.app_name));
             v.setTextViewText(R.id.w_title, c.getString(R.string.empty_title));
             v.setTextViewText(R.id.w_core, c.getString(R.string.empty_body));

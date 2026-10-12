@@ -7,9 +7,20 @@ import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.TextView;
+import android.widget.Toast;
 
-/** Full note with the 了解 button. Also the app's launcher screen. */
+import java.util.Random;
+
+/** Full note with the Done button. Also the app's launcher screen. */
 public class DetailActivity extends Activity {
+
+    /** Shown briefly after Done, picked at random. */
+    private static final String[] PHRASES = {
+            "Confirmed.", "Noted.", "Got it.", "Filed away.", "Saved.",
+            "Locked in.", "One more down.", "In the bag.", "Nice.", "Sharp.",
+            "Well done.", "Keep going.", "Onward.", "Another one for the essay.",
+    };
+    private static final Random RANDOM = new Random();
 
     private WebView web;
     private TextView button;
@@ -47,13 +58,17 @@ public class DetailActivity extends Activity {
     }
 
     private void show() {
-        Store.Note n = Store.current(this);
+        boolean finished = Store.finishedToday(this);
+        Store.Note n = finished ? null : Store.current(this);
         shownId = n == null ? null : n.id;
         button.setEnabled(n != null);
         button.setVisibility(n == null ? View.GONE : View.VISIBLE);
 
         String body;
-        if (n == null) {
+        if (finished) {
+            body = "<header><h1>" + esc(getString(R.string.end_title)) + "</h1>"
+                    + "<p class=\"core\">" + esc(getString(R.string.end_body)) + "</p></header>";
+        } else if (n == null) {
             body = "<header><h1>" + esc(getString(R.string.empty_title)) + "</h1>"
                     + "<p class=\"core\">" + esc(getString(R.string.empty_body)) + "</p></header>";
         } else {
@@ -74,8 +89,11 @@ public class DetailActivity extends Activity {
         int days = Store.understood(this, shownId);
         NoteWidget.refreshAll(this);
         if (days > 0) {
-            // Quietly close; the widget already shows the next note.
-            finish();
+            String msg = Store.finishedToday(this)
+                    ? getString(R.string.end_title)
+                    : PHRASES[RANDOM.nextInt(PHRASES.length)];
+            Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+            finish(); // back to the home screen; the widget already shows the next note
         } else {
             // The widget already moved on while this page was open; show the new note.
             show();
