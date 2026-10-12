@@ -1,0 +1,60 @@
+plugins {
+    id 'com.android.application'
+}
+
+// Set by the GitHub workflow: -PnotesUrl=https://raw.githubusercontent.com/<owner>/<repo>/main/notes.json
+def notesUrl = project.findProperty('notesUrl') ?: ''
+def runNumber = (System.getenv('GITHUB_RUN_NUMBER') ?: '1') as Integer
+def keystoreFile = System.getenv('KEYSTORE_FILE')
+
+android {
+    namespace 'com.lexflow.widget'
+    compileSdk 34
+
+    defaultConfig {
+        applicationId 'com.lexflow.widget'
+        minSdk 26
+        targetSdk 34
+        versionCode runNumber
+        versionName "1.0.${runNumber}"
+        buildConfigField 'String', 'NOTES_URL', "\"${notesUrl}\""
+    }
+
+    buildFeatures {
+        buildConfig true
+    }
+
+    signingConfigs {
+        release {
+            if (keystoreFile) {
+                storeFile file(keystoreFile)
+                storePassword System.getenv('KEYSTORE_PASSWORD')
+                keyAlias System.getenv('KEY_ALIAS')
+                keyPassword System.getenv('KEY_PASSWORD')
+            }
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            signingConfig keystoreFile ? signingConfigs.release : signingConfigs.debug
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+
+    lint {
+        checkReleaseBuilds false
+        abortOnError false
+    }
+}
+
+dependencies {
+    testImplementation 'junit:junit:4.13.2'
+    // Real org.json for unit tests (android.jar only has stubs).
+    testImplementation 'org.json:json:20231013'
+}

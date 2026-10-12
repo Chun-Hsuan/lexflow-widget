@@ -1,0 +1,70 @@
+name: Build app
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "app/**"
+      - "build.gradle"
+      - "settings.gradle"
+      - "gradle.properties"
+      - ".github/workflows/app.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Bundle notes into the app
+        run: |
+          pip install markdown
+          python tools/build_notes.py
+          mkdir -p app/src/main/assets
+          cp notes.json app/src/main/assets/notes.json
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+
+      - uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: "8.7"
+
+      - name: Prepare signing key
+        env:
+          SIGNING_KEY_B64: ${{ secrets.SIGNING_KEY_B64 }}
+        run: |
+          if [ -n "$SIGNING_KEY_B64" ]; then
+            echo "$SIGNING_KEY_B64" | base64 -d > "$RUNNER_TEMP/release.jks"
+          else
+            cp signing/release.jks "$RUNNER_TEMP/release.jks"
+          fi
+
+      - name: Test and build
+        env:
+          KEYSTORE_FILE: ${{ runner.temp }}/release.jks
+          KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD || 'lexflow-widget' }}
+          KEY_ALIAS: lexflow
+          KEY_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD || 'lexflow-widget' }}
+        run: |
+          gradle testReleaseUnitTest assembleRelease \
+            -PnotesUrl=https://raw.githubusercontent.com/${{ github.repository }}/main/notes.json
+          cp app/build/outputs/apk/release/app-release.apk LexFlow-Widget.apk
+
+      - name: Publish release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v1.0.${{ github.run_number }}
+          name: LexFlow 筆記 v1.0.${{ github.run_number }}
+          files: LexFlow-Widget.apk
+          make_latest: true
