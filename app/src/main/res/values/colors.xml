@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- 墨灰、淺色 -->
-    <color name="bg">#F5F6F8</color>
+    <color name="bg">#F9F8F5</color>
     <color name="fg">#1B1F24</color>
     <color name="fg_soft">#2F3640</color>
     <color name="muted">#5A6370</color>

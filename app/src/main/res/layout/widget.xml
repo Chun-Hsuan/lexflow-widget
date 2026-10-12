@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Title: one line at the top, auto-sized to the width (18sp to 42sp).
+<!-- Title: one line at the top, auto-sized to the width (18sp to 38sp).
      Core: fixed 22sp, fills the rest; the number of lines is set from the widget height. -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/w_root"
@@ -16,7 +16,7 @@
         android:id="@+id/w_title"
         android:layout_width="match_parent"
         android:layout_height="@dimen/widget_title_box"
-        android:autoSizeMaxTextSize="42sp"
+        android:autoSizeMaxTextSize="38sp"
         android:autoSizeMinTextSize="18sp"
         android:autoSizeStepGranularity="1sp"
         android:autoSizeTextType="uniform"

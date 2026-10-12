@@ -42,7 +42,7 @@ public class DetailActivity extends Activity {
         button = findViewById(R.id.btn_understood);
 
         WebSettings s = web.getSettings();
-        s.setJavaScriptEnabled(false);
+        s.setJavaScriptEnabled(true); // only for the background blobs; the page is our own notes
         s.setAllowFileAccess(false);
         web.setBackgroundColor(getColor(R.color.bg));
 
@@ -50,8 +50,15 @@ public class DetailActivity extends Activity {
     }
 
     @Override
+    protected void onPause() {
+        super.onPause();
+        web.onPause(); // stops the blob animation while the page is hidden
+    }
+
+    @Override
     protected void onResume() {
         super.onResume();
+        web.onResume();
         if (Store.finishedToday(this)) {
             // Done for today: the note page stays closed until tomorrow.
             Toast.makeText(this, getString(R.string.end_title), Toast.LENGTH_SHORT).show();
@@ -94,8 +101,9 @@ public class DetailActivity extends Activity {
         }
         String html = "<!doctype html><html><head><meta charset=\"utf-8\">"
                 + "<meta name=\"viewport\" content=\"width=device-width,initial-scale=1\">"
-                + "<style>" + NoteCss.CSS + "</style></head>"
-                + "<body>" + body + "</body></html>";
+                + "<style>" + NoteCss.CSS + NoteBlob.CSS + "</style></head>"
+                + "<body><div id=\"blobs\"></div><div id=\"page\">" + body + "</div>"
+                + "<script>" + NoteBlob.JS + "</script></body></html>";
         web.loadDataWithBaseURL(null, html, "text/html", "utf-8", null);
         web.scrollTo(0, 0);
     }

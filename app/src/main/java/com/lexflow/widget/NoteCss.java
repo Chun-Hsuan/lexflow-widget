@@ -1,16 +1,17 @@
 package com.lexflow.widget;
 
-/** Reading styles for the note page. Colors match res/values/colors.xml (ink, light only). */
+/** Reading styles for the note page: ChronoFlow warm paper, ink-gray text, light only. */
 final class NoteCss {
     private NoteCss() {
     }
 
     static final String CSS = ""
-            + ":root{--bg:#F5F6F8;--fg:#1B1F24;--muted:#5A6370;--line:#DCE0E6;"
-            + "--accent:#3A3F47;--accent-soft:#E8E9EC;--panel:#FFFFFF;}"
+            + ":root{--bg:#F9F8F5;--fg:#1B1F24;--muted:#5A6370;--line:rgba(58,63,71,.14);"
+            + "--accent:#3A3F47;--accent-soft:rgba(58,63,71,.08);--panel:rgba(255,255,255,.55);}"
+            + "html{min-height:100%;background:linear-gradient(180deg,#F9F8F5 0%,#FCFAF6 100%) fixed}"
             + "*{box-sizing:border-box}"
             + "html{-webkit-text-size-adjust:100%}"
-            + "body{margin:0;padding:20px 20px 112px;background:var(--bg);color:var(--fg);"
+            + "body{margin:0;padding:20px 20px 112px;background:transparent;color:var(--fg);"
             + "font-family:sans-serif;font-size:18px;line-height:1.7;word-wrap:break-word}"
             + "header{padding-bottom:18px;margin-bottom:8px;border-bottom:1px solid var(--line)}"
             + ".tag{display:inline-block;font-size:12px;font-weight:700;letter-spacing:.08em;"
