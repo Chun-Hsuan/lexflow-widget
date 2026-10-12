@@ -53,9 +53,9 @@ jobs:
       - name: Test and build
         env:
           KEYSTORE_FILE: ${{ runner.temp }}/release.jks
-          KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD || 'lexflow-widget' }}
+          KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD || 'I-o31X_RT-feL-ql8Fdnj0JD' }}
           KEY_ALIAS: lexflow
-          KEY_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD || 'lexflow-widget' }}
+          KEY_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD || 'I-o31X_RT-feL-ql8Fdnj0JD' }}
         run: |
           gradle testReleaseUnitTest assembleRelease \
             -PnotesUrl=https://raw.githubusercontent.com/${{ github.repository }}/main/notes.json
