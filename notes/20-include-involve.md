@@ -1,45 +1,55 @@
 ---
 title: include vs involve
 type: 辨析
-core: include 是靜態的「清單」，整體裡包含哪些項目；involve 是動態的「代價」，做這件事必然牽涉的過程、風險、精力（接動詞用 V-ing）。
+core: include 列出組成項目；involve 說牽涉的過程、代價；include 不加 of，involve 接動作用 V-ing。
 ---
 
-兩個都常翻成「包含、涉及」，但核心畫面完全不同：
+## 結論
 
-- **include**：靜態的「看清單」。整體裡面包含哪些部分或項目。
-- **involve**：動態的「付代價」。做這件事必然牽涉的過程、代價、風險或需要。
+- 中文都可翻成「包括、包含、涉及」，但 include 說「裡面有哪些項目」，involve 說「做這件事會牽涉到什麼」。
+- 兩個字後面都不加 of；involve 後面接動作要用 V-ing，不能用 to V。
+- 講價格、套裝內容含什麼，只能用 include，不能用 involve。
 
-## include（包括、包含：靜態組成）
+## include：列出組成
 
-- 核心：單純表達「A 裡面有 B 和 C」的客觀事實。
-- 公式：
-  1. 整體（主詞）+ include + 部分（受詞）（不能加介系詞 of）
-  2. 完整句子, including + 項目.（including 作介系詞，寫作最常用）
-- 常見組合：
-  - include all physical assets（包含所有實體資產）
-  - include tax and service charges（包含稅金與服務費）
+- 句型：整體 + include + 部分；完整句子, including + 項目.
+- The price includes tax and service charges.（價格含稅金與服務費。）
+- 必背搭配：include all physical assets（包含所有實體資產）、include tax and service charges（包含稅金與服務費）。
+- 錯：The price includes of tax.（不加 of）
 
-## involve（涉及、需要：動態過程）
+## involve：牽涉的過程或代價
 
-- 核心：做這件事必然帶來的後果、風險，或必須投入的時間、精力。
-- 公式：
-  1. 事件（主詞）+ involve + 名詞／代價
-  2. 事件（主詞）+ involve + V-ing（後面接動詞一定用動名詞）
-- 常見組合：
-  - involve a certain degree of risk（包含一定程度的風險）
-  - involve restructuring and layoffs（涉及組織重組與裁員）
+- 句型：事件 + involve + 名詞／V-ing
+- Starting a business involves a certain degree of risk.（創業伴隨一定程度的風險。）
+- 必背搭配：involve a certain degree of risk（包含一定程度的風險）、involve restructuring and layoffs（涉及組織重組與裁員）。
+- 錯：The job involves to work at night. → 對：The job involves working at night.*
 
-## 對比
+## 用法不同
 
-| 項目 | include（看清單） | involve（付代價） |
+- 表示「含有哪些項目」時，involve 不能取代 include。
+  - 對：The price includes tax and service charges.
+  - 錯：The price involves tax and service charges.*
+- 同一個主詞，兩個字的意思不同：
+  - The training program includes three major tests.（課表裡有三場測試，講內容。）
+  - The training program involves intense physical exercise.（參加過程會很累，講牽涉到的過程與代價。）
+
+## 可以混用
+
+- 描述活動時，若重點是「裡面有哪些項目」，include 和 involve 有時都通順，但意思略有不同：
+  - The job includes working at night.（夜班是工作內容的其中一項。）
+  - The job involves working at night.（這份工作需要上夜班。）
+
+## 對照表
+
+| 項目 | include | involve |
 |---|---|---|
-| 核心畫面 | 大盒子裡裝小盒子，內容物清單，靜態描述 | 齒輪帶動或被捲入，不可避免的體驗、代價或過程，動態描述 |
-| 主詞類型 | 具體的物品、帳單、套裝行程 | 活動、專案、政策、轉變 |
-| 受詞類型 | 具體的項目、功能、成員 | 抽象的風險、代價、精力、必然步驟 |
+| 說什麼 | 整體包含哪些部分 | 這件事會牽涉的過程、代價、風險 |
+| 常見主詞 | 物品、帳單、套裝行程 | 活動、專案、政策、轉變 |
+| 常見受詞 | 具體的項目、功能、成員 | 風險、代價、精力、必經的步驟 |
 
-## 同一個主詞的對比
+## 翻譯與作文
 
-- The training program includes three major tests.
-  - 培訓計畫的課表裡有三場測試（靜態的內容物）。
-- The training program involves intense physical exercise.
-  - 參加這個培訓過程會很硬，會牽涉高強度的體能消耗（動態的代價與過程）。
+- 中文對應：「包括、包含」→ include；「涉及、需要、免不了」→ involve。
+- 作文句型：___ involves ___. / ___, including ___.
+  - Learning a new skill involves making mistakes.*
+  - Many countries, including Taiwan, have to face the problem of aging.*

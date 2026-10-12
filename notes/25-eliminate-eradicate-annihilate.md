@@ -1,30 +1,49 @@
 ---
-title: eliminate / eradicate / annihilate
+title: eliminate 與 eradicate
 type: 辨析
-core: eliminate 透過篩選「剔除、淘汰」（errors、risk）；eradicate 「連根拔起」壞事物（poverty、disease）；annihilate 「化為烏有」，毀滅敵軍、城市。
+core: eliminate 是剔除、淘汰；eradicate 是根除壞事物；兩者常可換，annihilate 是毀滅，學測少見。
 ---
 
-## 對比表
+## 結論
 
-| 單字 | 字根與語意 | 對象 | 畫面感 |
-|---|---|---|---|
-| eliminate | e-（向外）+ limin-（門檻）→ 趕出門外 | 錯誤、風險、競爭對手 | 比較溫和、客觀，透過程序、篩選來剔除或排除 |
-| eradicate | e-（向外）+ radic-（根）→ 連根拔起 | 疾病、貧窮、社會惡疾 | 徹底根除，讓壞東西不再發生 |
-| annihilate | ad-（去）+ nihil（無）→ 化為烏有 | 敵軍、國家、整座城市 | 毀滅性最強，用強大力量徹底摧毀 |
+- eliminate 和 eradicate 都有「消除」的意思，接 poverty、disease、errors 這類名詞時，很多句子可以互換。
+- eliminate 另有「淘汰（出局）」的意思，eradicate 沒有；eradicate 的對象幾乎都是壞事物，語氣是「徹底根除」。
+- annihilate 是「殲滅、毀滅」，用於軍隊、城市等具體對象，學測少見。
 
-## 常見搭配（看受詞就能選）
+## 字源（幫助記憶）
 
-**1. eliminate：淘汰、剔除、排除**
+- eliminate：e-（向外）+ limin-（門檻），原意是趕出門外，引申為剔除、排除。
+- eradicate：e-（向外）+ radic-（根），原意是連根拔起，引申為根除。
+- annihilate：ad-（去）+ nihil（無），原意是化為烏有，引申為徹底毀滅。
+
+## 可以混用
+
+下面兩組換字後都通順：
+
+- eliminate poverty / eradicate poverty
+- eliminate a disease / eradicate a disease（如 smallpox 被根除）
+
+## 用法不同
+
+**1. 淘汰、剔除（錯誤、風險、比賽中的對手）：eliminate**
 
 - eliminate errors（消除錯誤）、eliminate the risk（排除風險）、be eliminated in the first round（在第一輪被淘汰）
-- The team was eliminated from the tournament after losing the match.（該隊輸掉比賽後被淘汰出錦標賽。）
+- The team was eliminated from the tournament after losing the match.（該隊在輸掉比賽後，從錦標賽中被淘汰了。）
+- 錯：The team was eradicated from the tournament.*
 
-**2. eradicate：根除（壞的抽象事物、疾病）**
+**2. 根除壞事物（疾病、貧窮、貪腐）：eradicate**
 
 - eradicate poverty（根除貧窮）、eradicate a disease（根除疾病）、eradicate corruption（根除貪腐）
 - Smallpox was entirely eradicated in 1980 through global vaccination.（天花透過全球接種疫苗，在 1980 年被完全根除。）
+- eradicate 的對象多半是壞事物（疾病、貧窮、貪腐），不用在好事物上。
 
-**3. annihilate：殲滅、毀滅（具體的人、軍隊、物體）**
+**3. 殲滅、毀滅（軍隊、城市、區域）：annihilate**
 
 - annihilate the enemy army（殲滅敵軍）、annihilate a city（摧毀整座城市）
-- The nuclear blast completely annihilated the entire area.（核爆將整個區域夷為平地。）
+- The nuclear blast completely annihilated the entire area.（核爆將整個區域完全夷為平地。）
+
+## 翻譯與作文
+
+- 中文對應：「消除、排除」→ eliminate；「淘汰」→ be eliminated；「根除、消滅（疾病、貧窮）」→ eradicate。
+- 作文句型：We should do our best to eliminate / eradicate ___.
+  - We should do our best to eradicate poverty.*
