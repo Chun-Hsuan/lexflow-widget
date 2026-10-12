@@ -52,9 +52,23 @@ def parse(path):
     }
 
 
+TITLE_MAX = 15  # widget title: one line, shrinks down to 18sp
+CORE_MAX = 50  # widget summary: 3 lines at 16sp
+
+
+def width(text):
+    """Display width in Chinese characters: ASCII counts as half."""
+    return sum(0.5 if ord(ch) < 128 else 1 for ch in text)
+
+
 def main():
     files = sorted(NOTES_DIR.glob("*.md"))
     notes = [parse(p) for p in files]
+    for n in notes:
+        if width(n["title"]) > TITLE_MAX:
+            print(f"warning: {n['id']}: title is {width(n['title']):.0f} wide (max {TITLE_MAX}), will be cut on the widget")
+        if width(n["core"]) > CORE_MAX:
+            print(f"warning: {n['id']}: core is {width(n['core']):.0f} wide (max {CORE_MAX}), will be cut on the widget")
     ids = [n["id"] for n in notes]
     dupes = {i for i in ids if ids.count(i) > 1}
     if dupes:
