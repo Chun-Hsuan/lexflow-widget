@@ -4,8 +4,6 @@
     <string name="widget_desc">每次顯示一則英文筆記，讀完按了解就換下一則</string>
     <string name="understood">了解</string>
     <string name="loading">載入中</string>
-    <string name="progress">已了解 %1$d / %2$d 則</string>
-    <string name="toast_done">了解。這則 %1$d 天後會再出現</string>
     <string name="empty_title">還沒有筆記</string>
     <string name="empty_body">筆記檔案是空的。新增筆記後，打開這個 App 就會同步。</string>
     <string name="preview_type">辨析</string>

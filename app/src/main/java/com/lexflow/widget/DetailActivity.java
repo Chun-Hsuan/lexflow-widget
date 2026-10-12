@@ -1,21 +1,18 @@
 package com.lexflow.widget;
 
 import android.app.Activity;
-import android.content.res.Configuration;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 /** Full note with the 了解 button. Also the app's launcher screen. */
 public class DetailActivity extends Activity {
 
     private WebView web;
     private TextView button;
-    private TextView progress;
     private String shownId;
 
     @Override
@@ -24,7 +21,6 @@ public class DetailActivity extends Activity {
         setContentView(R.layout.activity_detail);
         web = findViewById(R.id.web);
         button = findViewById(R.id.btn_understood);
-        progress = findViewById(R.id.progress);
 
         WebSettings s = web.getSettings();
         s.setJavaScriptEnabled(false);
@@ -56,9 +52,6 @@ public class DetailActivity extends Activity {
         button.setEnabled(n != null);
         button.setVisibility(n == null ? View.GONE : View.VISIBLE);
 
-        Store.Progress p = Store.progress(this);
-        progress.setText(getString(R.string.progress, p.understood, p.total));
-
         String body;
         if (n == null) {
             body = "<header><h1>" + esc(getString(R.string.empty_title)) + "</h1>"
@@ -69,12 +62,10 @@ public class DetailActivity extends Activity {
                     + "<p class=\"core\">" + esc(n.core) + "</p></header>"
                     + "<article>" + n.html + "</article>";
         }
-        boolean dark = (getResources().getConfiguration().uiMode
-                & Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES;
         String html = "<!doctype html><html><head><meta charset=\"utf-8\">"
                 + "<meta name=\"viewport\" content=\"width=device-width,initial-scale=1\">"
                 + "<style>" + NoteCss.CSS + "</style></head>"
-                + "<body class=\"" + (dark ? "dark" : "light") + "\">" + body + "</body></html>";
+                + "<body>" + body + "</body></html>";
         web.loadDataWithBaseURL(null, html, "text/html", "utf-8", null);
         web.scrollTo(0, 0);
     }
@@ -83,7 +74,7 @@ public class DetailActivity extends Activity {
         int days = Store.understood(this, shownId);
         NoteWidget.refreshAll(this);
         if (days > 0) {
-            Toast.makeText(this, getString(R.string.toast_done, days), Toast.LENGTH_SHORT).show();
+            // Quietly close; the widget already shows the next note.
             finish();
         } else {
             // The widget already moved on while this page was open; show the new note.
