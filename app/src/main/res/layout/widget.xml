@@ -1,22 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Title: one line at the top, auto-sized to the width (18sp to 38sp).
-     Core: fixed 22sp, fills the rest; the number of lines is set from the widget height. -->
+<!-- Dark solid card (matches Samsung's calendar widget). Title one line, 24sp,
+     shrinking to 18sp only if it does not fit. Core 16sp, up to 3 lines.
+     The text block sits vertically centered with even margins. -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/w_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/widget_bg"
+    android:gravity="center_vertical"
     android:orientation="vertical"
-    android:paddingStart="20dp"
-    android:paddingTop="14dp"
-    android:paddingEnd="20dp"
+    android:paddingStart="22dp"
+    android:paddingTop="18dp"
+    android:paddingEnd="22dp"
     android:paddingBottom="18dp">
 
     <TextView
         android:id="@+id/w_title"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/widget_title_box"
-        android:autoSizeMaxTextSize="38sp"
+        android:layout_height="34dp"
+        android:autoSizeMaxTextSize="24sp"
         android:autoSizeMinTextSize="18sp"
         android:autoSizeStepGranularity="1sp"
         android:autoSizeTextType="uniform"
@@ -24,19 +26,17 @@
         android:gravity="center_vertical"
         android:maxLines="1"
         android:text="@string/loading"
-        android:textColor="@color/fg"
+        android:textColor="@color/widget_title"
         android:textStyle="bold" />
 
     <TextView
         android:id="@+id/w_core"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:layout_marginTop="4dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:ellipsize="end"
-        android:gravity="top"
-        android:lineSpacingMultiplier="1.15"
+        android:lineSpacingMultiplier="1.25"
         android:maxLines="3"
-        android:textColor="@color/fg_soft"
-        android:textSize="@dimen/widget_core_text" />
+        android:textColor="@color/widget_core"
+        android:textSize="16sp" />
 </LinearLayout>
